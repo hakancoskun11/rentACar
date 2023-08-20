@@ -1,10 +1,9 @@
 package com.hakancoskun.rentACar.controllers;
 
 import com.hakancoskun.rentACar.business.abstracts.BrandService;
-import com.hakancoskun.rentACar.entities.concretes.Brand;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.hakancoskun.rentACar.business.requests.CreateBrandRequest;
+import com.hakancoskun.rentACar.business.responses.GetAllBrandsResponse;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +19,13 @@ public class BrandsController {
     }
 
     @GetMapping("/getall")
-    public List<Brand> getAll() {
+    public List<GetAllBrandsResponse> getAll() {
         return brandService.getAll();
     }
+
+    @PostMapping("/add")
+    public void add(@RequestBody CreateBrandRequest request) {
+        this.brandService.add(request);
+    }
+
 }

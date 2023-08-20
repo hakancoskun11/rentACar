@@ -1,10 +1,11 @@
 package com.hakancoskun.rentACar.business.abstracts;
 
-import com.hakancoskun.rentACar.entities.concretes.Brand;
-
+import com.hakancoskun.rentACar.business.requests.CreateBrandRequest;
+import com.hakancoskun.rentACar.business.responses.GetAllBrandsResponse;
 import java.util.List;
 
 public interface BrandService {
-    List<Brand> getAll();
+    List<GetAllBrandsResponse> getAll();
+    void add(CreateBrandRequest request);
 
 }
