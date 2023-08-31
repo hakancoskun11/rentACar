@@ -5,6 +5,7 @@ import com.hakancoskun.rentACar.business.requests.CreateBrandRequest;
 import com.hakancoskun.rentACar.business.requests.UpdateBrandRequest;
 import com.hakancoskun.rentACar.business.responses.GetAllBrandsResponse;
 import com.hakancoskun.rentACar.business.responses.GetByIdBrandResponse;
+import com.hakancoskun.rentACar.business.rules.BrandBusinessRules;
 import com.hakancoskun.rentACar.core.utilities.mappers.ModelMapperService;
 import com.hakancoskun.rentACar.dataAccess.abstracts.BrandRepository;
 import com.hakancoskun.rentACar.entities.concretes.Brand;
@@ -21,6 +22,7 @@ public class BrandManager implements BrandService {
 
     private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BrandBusinessRules brandBusinessRules;
 
     public List<GetAllBrandsResponse> getAll() {
         List<Brand> brands = brandRepository.findAll();
@@ -46,6 +48,9 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(CreateBrandRequest createBrandRequest) {
+        this.brandBusinessRules.checkIfBrandNameExists(createBrandRequest.getName());
+        //other business rules like this
+
         //Kaynak ve dönüştürülmek istenen tip parametre olarak verildi.
         Brand brand = this.modelMapperService.forRequst().map(createBrandRequest,Brand.class);
         this.brandRepository.save(brand);
